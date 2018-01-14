@@ -30,10 +30,37 @@ describe("ztime", function() {
 describe("ztime.jitter", function() {
   it("should return time between +/- jitter excluded", () => {
     for(let i =0; i < 250; ++i) {
-      const date = ztime(0).jitter(1);
+      const date = ztime(0).jitter(2); // 2 milliseconds amplitude centered on 0
       
       assert.isAbove(date.time, -1);
       assert.isBelow(date.time, +1);
+    }
+  });
+    
+  it("should accept seconds", () => {
+    for(let i =0; i < 250; ++i) {
+      const date = ztime(0).jitter({seconds: 2});
+      
+      assert.isAbove(date.time, -1*1000);
+      assert.isBelow(date.time, +1*1000);
+    }
+  });
+    
+  it("should accept minutes", () => {
+    for(let i =0; i < 250; ++i) {
+      const date = ztime(0).jitter({minutes: 2});
+      
+      assert.isAbove(date.time, -1*60*1000);
+      assert.isBelow(date.time, +1*60*1000);
+    }
+  });
+    
+  it("should accept hours", () => {
+    for(let i =0; i < 250; ++i) {
+      const date = ztime(0).jitter({hours: 2});
+      
+      assert.isAbove(date.time, -1*60*60*1000);
+      assert.isBelow(date.time, +1*60*60*1000);
     }
   });
     
