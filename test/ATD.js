@@ -17,6 +17,13 @@ describe("atd", function() {
     assert.equal(date.time, now);
   });
 
+  it("should accept string-time as date object in constructor", () => {
+    const date = atd("10:30").date;
+    
+    assert.equal(date.getMinutes(), 30);
+    assert.equal(date.getHours(), 10);
+  });
+
 });
 
 
