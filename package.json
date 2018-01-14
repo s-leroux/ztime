@@ -1,5 +1,5 @@
 {
-  "name": "atd",
+  "name": "ztime",
   "version": "0.1.0",
   "description": "A promise-based timer library",
   "main": "index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/s-leroux/atd.git"
+    "url": "git+ssh://git@github.com/s-leroux/ztime.git"
   },
   "keywords": [
     "timer",

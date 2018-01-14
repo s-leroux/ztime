@@ -4,25 +4,25 @@ atd
 Promise-based timer utilities
 
 
-[![Build Status](https://travis-ci.org/s-leroux/atd.png?branch=master)](https://travis-ci.org/s-leroux/atd)
+[![Build Status](https://travis-ci.org/s-leroux/ztime.png?branch=master)](https://travis-ci.org/s-leroux/ztime)
 
 ## Installation
 
-    npm install --save atd
+    npm install --save ztime
     
 
 ## API
 
-### atd.wait(date)
+### z.wait(date)
 
 Return a promise that will be fulfiled at the given date.
 Date is either a Date object, or a string that can be parsed as a date or time.
 
 
 ```
-    const atd = require('atd');
+    const ztime = require('ztime');
 
-    atd("16:00").wait().then(() => console.log('Tea time'))
+    ztime("16:00").wait().then(() => console.log('Tea time'))
 ```
 
 

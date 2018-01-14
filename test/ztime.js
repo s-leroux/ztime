@@ -1,24 +1,24 @@
-const atd = require("../index.js");
+const ztime = require("../index.js");
 const { assert } = require("chai");
 const Promise = require("bluebird");
 
-describe("atd", function() {
+describe("ztime", function() {
   const now = Date.now();
 
   it("should accept a date object in constructor", () => {
-    const date = atd(new Date(now));
+    const date = ztime(new Date(now));
 
     assert.equal(date.time, now);
   });
 
   it("should accept a numeric as date object in constructor", () => {
-    const date = atd(now);
+    const date = ztime(now);
 
     assert.equal(date.time, now);
   });
 
   it("should accept string-time as date object in constructor", () => {
-    const date = atd("10:30").date;
+    const date = ztime("10:30").date;
     
     assert.equal(date.getMinutes(), 30);
     assert.equal(date.getHours(), 10);
@@ -27,10 +27,10 @@ describe("atd", function() {
 });
 
 
-describe("atd.jitter", function() {
+describe("ztime.jitter", function() {
   it("should return time between +/- jitter excluded", () => {
     for(let i =0; i < 250; ++i) {
-      const date = atd(0).jitter(1);
+      const date = ztime(0).jitter(1);
       
       assert.isAbove(date.time, -1);
       assert.isBelow(date.time, +1);
@@ -40,12 +40,12 @@ describe("atd.jitter", function() {
 });
 
 
-describe("atd.plus", function() {
+describe("ztime.plus", function() {
   const now = Date.now();
 
   it("should accept milliseconds", () => {
     const delta = 101;
-    const date = atd(now);
+    const date = ztime(now);
     
     assert.equal(date.plus(+delta).time, now+delta);
     assert.equal(date.plus(-delta).time, now-delta);
@@ -53,7 +53,7 @@ describe("atd.plus", function() {
 
   it("should accept an object specifying the time offset", () => {
     const delta = 101;
-    const date = atd(now);
+    const date = ztime(now);
     
     assert.equal(date.plus({milliseconds: +delta}).time, now+delta);
     assert.equal(date.plus({milliseconds: -delta}).time, now-delta);
@@ -62,29 +62,29 @@ describe("atd.plus", function() {
 });
 
 
-describe("atd.wait", function() {
+describe("ztime.wait", function() {
   it("should return a promise", () => {
-    return atd(Date.now()).wait().finally(()=>{});
+    return ztime(Date.now()).wait().finally(()=>{});
   });
 
   it("should fulfill wait to the past", (done) => {
     this.timeout(5);
-    atd(Date.now()-1000).wait().finally(()=>done());
+    ztime(Date.now()-1000).wait().finally(()=>done());
   });
 
   it("should fulfill wait to the present", (done) => {
     this.timeout(5);
-    atd(Date.now()).wait().finally(()=>done());
+    ztime(Date.now()).wait().finally(()=>done());
   });
 
   it("should wait until the near future", (done) => {
-    atd(Date.now()+10).wait().finally(done);
+    ztime(Date.now()+10).wait().finally(done);
   });
 
   it("should wait until the far future", (done) => {
     let pending = true;
     Promise.any([
-      atd(Date.now()+5000).wait().finally(()=> pending=false),
+      ztime(Date.now()+5000).wait().finally(()=> pending=false),
       Promise.delay(500), // timeout
     ]).finally(() => {
       assert.isTrue(pending);

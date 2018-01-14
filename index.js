@@ -1,1 +1,1 @@
-module.exports = require('./lib/atd');
+module.exports = require('./lib/ztime');
