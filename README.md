@@ -20,9 +20,9 @@ Date is either a Date object, or a string that can be parsed as a date or time.
 
 
 ```
-    const { wait } = require('atd');
+    const atd = require('atd');
 
-    wait("16:00").then(() => console.log('Tea time'))
+    atd("16:00").wait().then(() => console.log('Tea time'))
 ```
 
 
