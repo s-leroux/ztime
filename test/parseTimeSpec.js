@@ -40,4 +40,23 @@ describe("parseTimeSpec", function() {
       assert.isBelow(parseTimeSpec(time)-now, 24*60*60*1000);
     }
   });
+
+
+  it("should handle leading + as relative time", () => {
+    const spec = `+01:23:45`;
+    const time = parseTimeSpec(spec);
+    const delta = time - Date.now();
+    
+    console.log(new Date(), time);
+    assert.closeTo(delta, (1*60*60+23*60+45)*1000, 50);
+  });
+
+  it("should handle leading - as relative time", () => {
+    const spec = `-01:23:45`;
+    const time = parseTimeSpec(spec);
+    const delta = Date.now() - time;
+    
+    assert.closeTo(delta, (1*60*60+23*60+45)*1000, 50);
+  });
+
 })
