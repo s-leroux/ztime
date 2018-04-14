@@ -19,7 +19,7 @@ describe("ztime", function() {
 
   it("should accept string-time as date object in constructor", () => {
     const date = ztime("10:30").date;
-    
+
     assert.equal(date.getMinutes(), 30);
     assert.equal(date.getHours(), 10);
   });
@@ -31,39 +31,39 @@ describe("ztime.jitter", function() {
   it("should return time between +/- jitter excluded", () => {
     for(let i =0; i < 250; ++i) {
       const date = ztime(0).jitter(2); // 2 milliseconds amplitude centered on 0
-      
+
       assert.isAbove(date.time, -1);
       assert.isBelow(date.time, +1);
     }
   });
-    
+
   it("should accept seconds", () => {
     for(let i =0; i < 250; ++i) {
       const date = ztime(0).jitter({seconds: 2});
-      
+
       assert.isAbove(date.time, -1*1000);
       assert.isBelow(date.time, +1*1000);
     }
   });
-    
+
   it("should accept minutes", () => {
     for(let i =0; i < 250; ++i) {
       const date = ztime(0).jitter({minutes: 2});
-      
+
       assert.isAbove(date.time, -1*60*1000);
       assert.isBelow(date.time, +1*60*1000);
     }
   });
-    
+
   it("should accept hours", () => {
     for(let i =0; i < 250; ++i) {
       const date = ztime(0).jitter({hours: 2});
-      
+
       assert.isAbove(date.time, -1*60*60*1000);
       assert.isBelow(date.time, +1*60*60*1000);
     }
   });
-    
+
 });
 
 
@@ -73,7 +73,7 @@ describe("ztime.plus", function() {
   it("should accept milliseconds", () => {
     const delta = 101;
     const date = ztime(now);
-    
+
     assert.equal(date.plus(+delta).time, now+delta);
     assert.equal(date.plus(-delta).time, now-delta);
   });
@@ -81,11 +81,11 @@ describe("ztime.plus", function() {
   it("should accept an object specifying the time offset", () => {
     const delta = 101;
     const date = ztime(now);
-    
+
     assert.equal(date.plus({milliseconds: +delta}).time, now+delta);
     assert.equal(date.plus({milliseconds: -delta}).time, now-delta);
   });
-    
+
 });
 
 
@@ -118,5 +118,29 @@ describe("ztime.wait", function() {
       done();
     });
   });
-    
+
+});
+
+
+
+describe("ztime.loop", function() {
+  const debug = require("debug")("ztime:loop-test");
+
+  it("should loop with a delay while the callback returns true", (done) => {
+    this.timeout(100*1.1);
+
+    const start = Date.now();
+    let n = 10;
+    ztime(0)
+      .loop({milliseconds: 10}, (date) => {
+        debug(date);
+        return (n -= 1)
+      })
+      .then(() => {
+        assert.equal(n, 0);
+        assert.isAbove(100, Date.now()-start);
+        done();
+      });
+  });
+
 });
