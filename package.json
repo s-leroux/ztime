@@ -1,6 +1,6 @@
 {
   "name": "ztime",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A promise-based timer library",
   "main": "index.js",
   "directories": {
