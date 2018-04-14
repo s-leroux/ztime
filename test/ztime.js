@@ -134,9 +134,10 @@ describe("ztime.loop", function() {
     const start = Date.now();
     let n = N+1;
     return ztime(start)
-      .loop({milliseconds: MS}, (date) => {
+      .loop({milliseconds: MS}, (date, done) => {
         debug(date);
-        return (n -= 1);
+        if ((n -= 1) == 0)
+          done()
       })
       .then(() => {
         assert.equal(n, 0);
@@ -151,9 +152,10 @@ describe("ztime.loop", function() {
     const start = Date.now();
     let n = N+1;
     return ztime(start)
-      .loop({milliseconds: MS}, {milliseconds: JITTER}, (date) => {
+      .loop({milliseconds: MS}, {milliseconds: JITTER}, (date, done) => {
         debug(date);
-        return (n -= 1);
+        if ((n -= 1) == 0)
+          done()
       })
       .then(() => {
         assert.isAbove(Date.now()-start, N*(MS-JITTER));
