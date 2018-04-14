@@ -125,21 +125,39 @@ describe("ztime.wait", function() {
 
 describe("ztime.loop", function() {
   const debug = require("debug")("ztime:loop-test");
+  const MS = 10;
+  const N = 10;
 
-  it("should loop with a delay while the callback returns true", (done) => {
-    this.timeout(100*1.1);
+  it("should loop with a delay while the callback returns true", () => {
+    this.timeout(N*MS*1.1);
 
     const start = Date.now();
-    let n = 10;
-    ztime(0)
-      .loop({milliseconds: 10}, (date) => {
+    let n = N+1;
+    return ztime(start)
+      .loop({milliseconds: MS}, (date) => {
         debug(date);
-        return (n -= 1)
+        return (n -= 1);
       })
       .then(() => {
         assert.equal(n, 0);
-        assert.isAbove(100, Date.now()-start);
-        done();
+        assert.isAbove(Date.now()-start, N*MS);
+      });
+  });
+
+  it("should take an optional jitter argument", () => {
+    const JITTER=5;
+    this.timeout(N*MS*2);
+
+    const start = Date.now();
+    let n = N+1;
+    return ztime(start)
+      .loop({milliseconds: MS}, {milliseconds: JITTER}, (date) => {
+        debug(date);
+        return (n -= 1);
+      })
+      .then(() => {
+        assert.isAbove(Date.now()-start, N*(MS-JITTER));
+        assert.isBelow(Date.now()-start, N*(MS+JITTER));
       });
   });
 
