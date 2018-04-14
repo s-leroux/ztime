@@ -24,6 +24,20 @@ describe("ztime", function() {
     assert.equal(date.getHours(), 10);
   });
 
+  it("should default to now() is no parameter given in constructor", () => {
+    const now = Date.now();
+    const date = ztime();
+
+    assert.closeTo(date.time, now, 5);
+  });
+
+  it("should convert to ISO string", () => {
+    const date = ztime().toString();
+
+    assert.isTrue(!!date.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d*Z$/));
+  });
+
+
 });
 
 
