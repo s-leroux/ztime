@@ -78,12 +78,36 @@ describe("ztime.plus", function() {
     assert.equal(date.plus(-delta).time, now-delta);
   });
 
-  it("should accept an object specifying the time offset", () => {
+  it("should accept an object specifying the time offset (ms)", () => {
     const delta = 101;
     const date = ztime(now);
 
     assert.equal(date.plus({milliseconds: +delta}).time, now+delta);
     assert.equal(date.plus({milliseconds: -delta}).time, now-delta);
+  });
+
+  it("should accept an object specifying the time offset (s)", () => {
+    const delta = 101;
+    const date = ztime(now);
+
+    assert.equal(date.plus({seconds: +delta}).time, now+delta*1000);
+    assert.equal(date.plus({seconds: -delta}).time, now-delta*1000);
+  });
+
+  it("should accept an object specifying the time offset (min)", () => {
+    const delta = 101;
+    const date = ztime(now);
+
+    assert.equal(date.plus({minutes: +delta}).time, now+delta*1000*60);
+    assert.equal(date.plus({minutes: -delta}).time, now-delta*1000*60);
+  });
+
+  it("should accept an object specifying the time offset (h)", () => {
+    const delta = 101;
+    const date = ztime(now);
+
+    assert.equal(date.plus({hours: +delta}).time, now+delta*1000*60*60);
+    assert.equal(date.plus({hours: -delta}).time, now-delta*1000*60*60);
   });
 
 });
@@ -141,7 +165,7 @@ describe("ztime.loop", function() {
       })
       .then(() => {
         assert.equal(n, 0);
-        assert.isAbove(Date.now()-start, N*MS);
+        assert.isAtLeast(Date.now()-start, N*MS);
       });
   });
 
