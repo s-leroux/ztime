@@ -128,7 +128,7 @@ describe("ztime.loop", function() {
   const MS = 10;
   const N = 10;
 
-  it("should loop with a delay while the callback returns true", () => {
+  it("should loop when calling next()", () => {
     this.timeout(N*MS*1.1);
 
     const start = Date.now();
@@ -145,7 +145,7 @@ describe("ztime.loop", function() {
       });
   });
 
-  it("should take an optional jitter argument", () => {
+  it("should accept jitter in next()", () => {
     const JITTER=5;
     this.timeout(N*MS*2);
 
@@ -160,6 +160,24 @@ describe("ztime.loop", function() {
       .then(() => {
         assert.isAbove(Date.now()-start, N*(MS-JITTER));
         assert.isBelow(Date.now()-start, N*(MS+JITTER));
+      });
+  });
+
+  it("should wait for the starting date", () => {
+    const JITTER=5;
+    this.timeout(N*MS*2);
+
+    const start = Date.now();
+    let n = N+1;
+    return ztime(start+100)
+      .loop((date, next) => {
+        debug(date);
+        if (n -= 1)
+          next(date.plus({milliseconds: MS}).jitter({milliseconds: JITTER}));
+      })
+      .then(() => {
+        assert.isAbove(Date.now()-start, 100+N*(MS-JITTER));
+        assert.isBelow(Date.now()-start, 100+N*(MS+JITTER));
       });
   });
 
