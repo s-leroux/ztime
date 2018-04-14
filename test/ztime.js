@@ -31,12 +31,17 @@ describe("ztime", function() {
     assert.closeTo(date.time, now, 5);
   });
 
-  it("should convert to ISO string", () => {
+  it("should convert to ISO string (toString)", () => {
     const date = ztime().toString();
 
     assert.isTrue(!!date.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d*Z$/));
   });
 
+  it("should convert to ISO string (toJSON)", () => {
+    const date = ztime().toJSON();
+
+    assert.isTrue(!!date.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d*Z$/));
+  });
 
 });
 
