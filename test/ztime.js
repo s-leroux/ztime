@@ -158,8 +158,8 @@ describe("ztime.loop", function() {
           next(date.plus({milliseconds: MS}).jitter({milliseconds: JITTER}));
       })
       .then(() => {
-        assert.isAbove(Date.now()-start, N*(MS-JITTER));
-        assert.isBelow(Date.now()-start, N*(MS+JITTER));
+        assert.isAtLeast(Date.now()-start, N*(MS-JITTER));
+        assert.isAtMost(Date.now()-start, N*(MS+JITTER));
       });
   });
 
@@ -176,8 +176,8 @@ describe("ztime.loop", function() {
           next(date.plus({milliseconds: MS}).jitter({milliseconds: JITTER}));
       })
       .then(() => {
-        assert.isAbove(Date.now()-start, 100+N*(MS-JITTER));
-        assert.isBelow(Date.now()-start, 100+N*(MS+JITTER));
+        assert.isAtLeast(Date.now()-start, 100+N*(MS-JITTER));
+        assert.isAtMost(Date.now()-start, 100+N*(MS+JITTER));
       });
   });
 
