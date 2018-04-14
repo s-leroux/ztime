@@ -129,6 +129,26 @@ describe("ztime.plus", function() {
     assert.equal(date.plus({hours: -delta}).time, now-delta*1000*60*60);
   });
 
+
+  /* UTC days are always 24h */
+  it("should accept an object specifying the time offset (d)", () => {
+    const delta = 101;
+    const date = ztime(now);
+
+    assert.equal(date.plus({days: +delta}).time, now+delta*1000*60*60*24);
+    assert.equal(date.plus({days: -delta}).time, now-delta*1000*60*60*24);
+  });
+
+  it("should accept an object specifying the time offset (w)", () => {
+    const delta = 101;
+    const date = ztime(now);
+
+    assert.equal(date.plus({weeks: +delta}).time, now+delta*1000*60*60*24*7);
+    assert.equal(date.plus({weeks: -delta}).time, now-delta*1000*60*60*24*7);
+  });
+
+
+
 });
 
 
