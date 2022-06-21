@@ -8,13 +8,15 @@
     *   [Parameters][4]
     *   [plus][5]
         *   [Parameters][6]
-    *   [minus][7]
-        *   [Parameters][8]
-    *   [jitter][9]
-        *   [Parameters][10]
-    *   [wait][11]
-    *   [loop][12]
-        *   [Parameters][13]
+        *   [Examples][7]
+    *   [minus][8]
+        *   [Parameters][9]
+        *   [Examples][10]
+    *   [jitter][11]
+        *   [Parameters][12]
+    *   [wait][13]
+    *   [loop][14]
+        *   [Parameters][15]
 
 ## ztime
 
@@ -76,6 +78,15 @@ The duration is expressed as a *duration object*.
 
 *   `duration`  
 
+#### Examples
+
+```javascript
+const event = new ztime();
+event.plus({ hours: 2 }).wait().then(()=>{
+console.log("2 hours have passed");
+});
+```
+
 ### minus
 
 Create a new event object by substracting a duration to this.
@@ -85,6 +96,15 @@ The duration is expressed as a *duration object*.
 #### Parameters
 
 *   `duration`  
+
+#### Examples
+
+```javascript
+const event = new ztime();
+event.plus({ hours: 2 }).minus({ minutes: 15 }).wait().then(()=>{
+console.log("1 hours 45 has passed");
+});
+```
 
 ### jitter
 
@@ -125,16 +145,20 @@ parameter.
 
 [6]: #parameters-1
 
-[7]: #minus
+[7]: #examples
 
-[8]: #parameters-2
+[8]: #minus
 
-[9]: #jitter
+[9]: #parameters-2
 
-[10]: #parameters-3
+[10]: #examples-1
 
-[11]: #wait
+[11]: #jitter
 
-[12]: #loop
+[12]: #parameters-3
 
-[13]: #parameters-4
+[13]: #wait
+
+[14]: #loop
+
+[15]: #parameters-4
