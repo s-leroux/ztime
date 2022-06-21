@@ -20,8 +20,8 @@ describe("ztime", function() {
   it("should accept string-time as date object in constructor", () => {
     const date = ztime("10:30").date;
 
-    assert.equal(date.getMinutes(), 30);
-    assert.equal(date.getHours(), 10);
+    assert.equal(date.getUTCMinutes(), 30);
+    assert.equal(date.getUTCHours(), 10);
   });
 
   it("should default to now() is no parameter given in constructor", () => {
