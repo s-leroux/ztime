@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "docs": "documentation build lib/** -f md > docs/api.md",
+    "docs": "jsdoc2md lib/*.js > docs/api.md",
     "lint": "eslint ."
   },
   "repository": {
@@ -30,8 +30,9 @@
   "homepage": "https://github.com/s-leroux/atd#readme",
   "devDependencies": {
     "chai": "^4.1.2",
-    "documentation": "^13.2.5",
     "eslint": "^8.18.0",
+    "eslint-plugin-jsdoc": "^39.3.3",
+    "jsdoc-to-markdown": "^7.1.1",
     "mocha": "^8.2.1"
   },
   "dependencies": {
