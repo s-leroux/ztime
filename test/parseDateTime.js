@@ -1,3 +1,5 @@
+"use strict";
+
 const { parseDateTime } = require("../index.js");
 const { assert } = require("chai");
 
@@ -15,7 +17,7 @@ describe("parseDateTime", function() {
 
     assert.equal(date.getUTCHours(), HOUR);
     assert.equal(date.getUTCMinutes(), MIN);
-    assert.equal(date.getUTCSeconds(), '00');
+    assert.equal(date.getUTCSeconds(), "00");
   });
 
   it("should parse HOUR format", () => {
@@ -23,8 +25,8 @@ describe("parseDateTime", function() {
     const date = parseDateTime(spec).date;
 
     assert.equal(date.getUTCHours(), HOUR);
-    assert.equal(date.getUTCMinutes(), '00');
-    assert.equal(date.getUTCSeconds(), '00');
+    assert.equal(date.getUTCMinutes(), "00");
+    assert.equal(date.getUTCSeconds(), "00");
   });
 
   it("should parse HOUR:MIN:SEC format", () => {
@@ -59,9 +61,9 @@ describe("parseDateTime", function() {
 
   it("should parse the day of week", function() {
     const now = new Date();
-    const intl = Intl.DateTimeFormat("en-US", {  weekday: 'long', })
+    const intl = Intl.DateTimeFormat("en-US", {  weekday: "long", });
 
-    for (let day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']) {
+    for (let day of ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]) {
       const target = parseDateTime(day);
 
       assert.isTrue(target > now);
@@ -71,7 +73,7 @@ describe("parseDateTime", function() {
 
 
   it("should handle leading + as relative time", () => {
-    const spec = `+01:23:45`;
+    const spec = "+01:23:45";
     const time = parseDateTime(spec);
     const delta = time - Date.now();
 
@@ -80,7 +82,7 @@ describe("parseDateTime", function() {
   });
 
   it("should handle leading - as relative time", () => {
-    const spec = `-01:23:45`;
+    const spec = "-01:23:45";
     const time = parseDateTime(spec);
     const delta = Date.now() - time;
 
@@ -97,4 +99,4 @@ describe("parseDateTime", function() {
 
     assert.equal(time, ref.valueOf());
   });
-})
+});

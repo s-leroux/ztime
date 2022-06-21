@@ -1,3 +1,5 @@
+"use strict";
+
 const ztime = require("../index.js");
 const { assert } = require("chai");
 const Promise = require("bluebird");
@@ -199,7 +201,7 @@ describe("ztime.loop", function() {
     return ztime(start)
       .loop((date, next) => {
         debug(date);
-        if (n -= 1)
+        if ((n -= 1) > 0)
           next(date.plus({milliseconds: MS}));
       })
       .then(() => {
@@ -217,7 +219,7 @@ describe("ztime.loop", function() {
     return ztime(start)
       .loop((date, next) => {
         debug(date);
-        if (n -= 1)
+        if ((n -= 1) > 0)
           next(date.plus({milliseconds: MS}).jitter({milliseconds: JITTER}));
       })
       .then(() => {
@@ -235,7 +237,7 @@ describe("ztime.loop", function() {
     return ztime(start+100)
       .loop((date, next) => {
         debug(date);
-        if (n -= 1)
+        if ((n -= 1)>0)
           next(date.plus({milliseconds: MS}).jitter({milliseconds: JITTER}));
       })
       .then(() => {

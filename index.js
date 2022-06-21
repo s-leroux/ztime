@@ -1,1 +1,3 @@
-module.exports = require('./lib/ztime');
+"use strict";
+
+module.exports = require("./lib/ztime");
