@@ -1,5 +1,5 @@
-atd
-===
+ztime
+=====
 
 Promise-based timer utilities
 
@@ -9,22 +9,45 @@ Promise-based timer utilities
 ## Installation
 
     npm install --save ztime
-    
 
-## API
-
-### z.wait(date)
-
-Return a promise that will be fulfiled at the given date.
-Date is either a Date object, or a string that can be parsed as a date or time.
+## Basic usage
 
 
 ```
     const ztime = require('ztime');
 
-    ztime("16:00").wait().then(() => console.log('Tea time'))
+    ztime("16:00").wait().then(() => console.log('Tea time'));
 ```
 
+The goal was to design a no-dependency library to perform simple date-time manipulation and
+trigger timer events.
+
+Principles:
+
+* All dates and times are UTC!
+* ECMAScript Epoch-basd. No leap seconds.
+* Date-time objects are immutable.
+
+The date-time specifier is understand a simple mini-language:
+
+```
+deta-time-spec: origin WS+ (('+'|'-') offset)+
+
+origin: '' | 'today' | 'now'
+      | (hh:mmm | hh:mm:ss)
+      | yyyy-mm-ddThh:mm:ssZ
+      | ('sunday'| .. |'saturday')
+
+offset: (hh:mm | hh:mm:ss)
+      
+```
+
+When the date is not explicitly specified, events are create in the future.
+So `ztime("monday")` is *next* monday (excl. today).
+
+## API
+
+See [docs/api.md](./docs/api.md)
 
 
 ## Node version
