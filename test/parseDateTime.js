@@ -50,6 +50,13 @@ describe("parseDateTime", function() {
     assert.equal(date.getUTCSeconds(), SEC, "SEC");
   });
 
+  it("should parse ISO dates", () => {
+    const ref = new Date();
+    const date = parseDateTime(ref.toISOString());
+
+    assert.equal(+date, +ref);
+  });
+
   it("should returns the closest time in the future", () => {
     const now = Date.now();
 
